@@ -138,3 +138,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+// Color Wipe Animation for Passion Cards (fade in/out based on visibility)
+const passionCards = document.querySelectorAll('.passion-card');
+
+const passionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            // 50% or more visible - fade in and wipe
+            setTimeout(() => {
+                entry.target.classList.add('wipe');
+                entry.target.classList.remove('wipe-reverse');
+            }, index * 200);
+        } else {
+            // Less than 50% visible - fade out and reverse wipe
+            setTimeout(() => {
+                entry.target.classList.remove('wipe');
+                entry.target.classList.add('wipe-reverse');
+            }, index * 200);
+        }
+    });
+}, { 
+    threshold: [0, 0.5, 1] // Track multiple visibility thresholds
+});
+
+passionCards.forEach(card => passionObserver.observe(card));

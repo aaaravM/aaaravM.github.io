@@ -419,6 +419,107 @@ h2 {
     flex-wrap: wrap;
 }
 
+/* Live Demos (Devpost) - ONE RECTANGLE SPLIT INTO 3 TRIANGULAR SECTIONS */
+#live-demos {
+    text-align: center;
+}
+
+.devpost-stack {
+    position: relative;
+    max-width: 900px;
+    height: 400px;
+    margin: 0 auto;
+    border: 3px solid rgba(0, 245, 255, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(10, 14, 39, 0.5);
+    box-shadow: 0 20px 60px rgba(0, 245, 255, 0.3);
+}
+
+.devpost-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    transition: filter 0.4s ease;
+}
+
+.devpost-card:hover {
+    filter: brightness(1.25);
+    z-index: 10;
+}
+
+/* Section 1 (LEFT): Triangle from top-left, middle-top, bottom-left */
+.devpost-card:nth-child(1) .devpost-frame {
+    clip-path: polygon(
+        0% 0%,      /* Top left corner */
+        50% 0%,     /* Middle of top edge */
+        0% 100%     /* Bottom left corner */
+    );
+}
+
+/* Section 2 (MIDDLE/BOTTOM): Triangle from bottom-left, middle-top, bottom-right */
+.devpost-card:nth-child(2) .devpost-frame {
+    clip-path: polygon(
+        0% 100%,    /* Bottom left corner */
+        50% 0%,     /* Middle of top edge */
+        100% 100%   /* Bottom right corner */
+    );
+}
+
+/* Section 3 (RIGHT): Triangle from middle-top, top-right, bottom-right */
+.devpost-card:nth-child(3) .devpost-frame {
+    clip-path: polygon(
+        50% 0%,     /* Middle of top edge */
+        100% 0%,    /* Top right corner */
+        100% 100%   /* Bottom right corner */
+    );
+}
+
+.devpost-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.devpost-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.15), rgba(123, 47, 247, 0.15));
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+}
+
+.devpost-card:hover .devpost-frame::before {
+    opacity: 0.8;
+}
+
+.devpost-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.1) contrast(1.08);
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.devpost-card:hover .devpost-frame img {
+    transform: scale(1.1);
+    filter: saturate(1.3) contrast(1.18);
+}
+
+.devpost-label {
+    display: none;
+}
+
 /* Footer */
 footer {
     text-align: center;
@@ -471,6 +572,17 @@ footer {
     }
     h2 {
         font-size: 2rem;
+    }
+    .devpost-stack {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        align-items: center;
+    }
+    .devpost-card {
+        width: 280px;
+        height: 320px;
     }
 }
 
